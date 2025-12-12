@@ -1,0 +1,346 @@
+/* ----------------------------------- */
+/* 1. RESET, FONDOS Y ESTRUCTURA BASE  */
+/* ----------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    color: #333;
+    background-color: #ffeef2;
+    line-height: 1.6;
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden; /* Evita el scroll nativo */
+}
+
+h1, h3, .signature {
+    font-family: 'Great Vibes', cursive;
+    color: #e91e63;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 10% 20%, #ffc1d3 2px, transparent 2px),
+                      radial-gradient(circle at 70% 80%, #ff98a6 1px, transparent 1px);
+    background-size: 50px 50px; 
+    opacity: 0.3; 
+    z-index: -1; 
+}
+
+
+/* ----------------------------------- */
+/* 2. SLIDESHOW Y DIAPOSITIVAS         */
+/* ----------------------------------- */
+.slideshow-container {
+    flex-grow: 1; 
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease-in-out;
+    overflow-y: auto; /* Permite scroll interno */
+}
+
+.slide.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* ----------------------------------- */
+/* 3. ESTILOS DE CADA SECCIÓN          */
+/* ----------------------------------- */
+
+/* Hero Section */
+.hero-section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.hero-section h1 { font-size: 5rem; }
+.hero-section p { font-size: 1.5rem; }
+.fade-in-title { opacity: 0; animation: fadeIn 2s ease-out 0.5s forwards; }
+.fade-in-subtitle { opacity: 0; animation: fadeIn 2s ease-out 1.5s forwards; }
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* BOTÓN DE CORAZÓN EN EL INICIO */
+.heart-btn {
+    padding: 15px 30px;
+    margin-top: 40px;
+    border: 3px solid #e91e63;
+    border-radius: 40px;
+    background-color: #ff4081;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(233, 30, 99, 0.4);
+    transition: all 0.3s ease;
+    animation: pulse 1.5s infinite;
+    opacity: 0; 
+}
+
+.heart-btn:hover {
+    background-color: #e91e63;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.6);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.fade-in-button {
+    animation: fadeIn 2s ease-out 2.5s forwards; 
+}
+
+
+/* Estilo general para secciones (infancia y recuerdos) - Full Height */
+.childhood-section, .story-section {
+    padding: 60px 5%; 
+    width: 100%; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Childhood Section (Galería) */
+.childhood-section { background-color: #fce4ec; }
+.childhood-section h2 { font-size: 3.5rem; color: #c2185b; margin-bottom: 40px; }
+.childhood-gallery { 
+    display: flex; 
+    justify-content: center; 
+    gap: 40px; 
+    flex-wrap: wrap; 
+    max-width: 1200px;
+}
+.childhood-photo-wrapper { 
+    padding: 20px; 
+    max-width: 300px; 
+    background-color: #fff; 
+    border-radius: 20px; 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); 
+}
+.childhood-image { 
+    width: 100%; 
+    height: 250px; 
+    object-fit: cover; 
+    border-radius: 10px; 
+    border: 3px solid #ff80ab; 
+}
+.childhood-caption { 
+    font-family: 'Great Vibes', cursive; 
+    font-size: 1.4rem; 
+}
+
+/* Story Section (Recuerdos) */
+.story-section h2 { font-size: 3rem; color: #e91e63; margin-bottom: 40px; }
+.memory-block { 
+    max-width: 900px; 
+    width: 90%;
+    display: flex; 
+    align-items: center; 
+    padding: 30px; 
+    background-color: #fff; 
+    border-radius: 15px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+    margin: 20px 0;
+}
+.memory-block.reverse { flex-direction: row-reverse; }
+.memory-image { width: 45%; margin: 0 20px; border-radius: 10px; }
+.memory-text { width: 55%; text-align: left; }
+.memory-text h3 { font-size: 2.5rem; }
+
+/* Promise Section (Mensaje Final) - Full Height */
+.promise-section {
+    background-color: #e91e63;
+    color: white;
+    padding: 80px 5%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.promise-content { max-width: 800px; }
+.promise-content h3 { color: #fff; font-size: 3.5rem; }
+.promise-content p { font-size: 1.5rem; }
+.signature { font-size: 4rem; margin-top: 30px; }
+
+
+/* ----------------------------------- */
+/* 4. CONTROLES DE NAVEGACIÓN          */
+/* ----------------------------------- */
+.controls-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    transition: opacity 0.3s ease; 
+}
+
+/* CLASE CRÍTICA: OCULTAR COMPLETAMENTE los controles en el slide de inicio */
+.controls-container.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.nav-btn {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 25px;
+    background-color: #ff4081;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    font-weight: bold;
+}
+
+.nav-btn:hover:not(:disabled) { background-color: #e91e63; transform: scale(1.05); }
+.nav-btn:disabled { background-color: #ccc; cursor: not-allowed; }
+
+footer {
+    display: none; 
+}
+
+/* ----------------------------------- */
+/* 5. LÓGICA DE ANIMACIÓN (SUAVE)      */
+/* ----------------------------------- */
+
+/* Estado inicial (oculto) para todos los elementos que deben animarse */
+.animated[data-animation] {
+    opacity: 0;
+    /* Duración de transición aumentada para suavidad */
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out; 
+}
+
+/* Definición de transformaciones iniciales */
+/* Distancia de desplazamiento reducida de 50px a 20px */
+.animated[data-animation="slide-left"] { transform: translateX(20px); }
+.animated[data-animation="slide-right"] { transform: translateX(-20px); }
+/* Zoom inicial ajustado de 0.7 a 0.8 para un efecto más sutil */
+.animated[data-animation="zoom-in"] { transform: scale(0.8); }
+
+/* Estado final (la clase 'animate-in' la añade JavaScript) */
+.animated.animate-in {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+
+/* ----------------------------------- */
+/* 6. RESPONSIVIDAD (Media Queries)    */
+/* ----------------------------------- */
+
+@media (max-width: 768px) {
+    
+    /* 1. Base y Tipografía */
+    body {
+        /* Se asegura que no haya desbordamiento horizontal */
+        overflow-x: hidden; 
+    }
+    
+    h1 { font-size: 3rem !important; }
+    h2 { font-size: 2.5rem !important; }
+    h3 { font-size: 2rem !important; }
+    p { font-size: 1.1rem !important; }
+    
+    /* 2. Sección Hero */
+    .hero-section h1 { font-size: 3.5rem !important; }
+    .hero-section p { font-size: 1.2rem !important; }
+    .heart-btn { 
+        padding: 12px 25px; 
+        font-size: 1.2rem;
+    }
+
+    /* 3. Galería de la Infancia */
+    .childhood-gallery {
+        /* Permite que las fotos se apilen verticalmente */
+        flex-direction: column; 
+        gap: 20px; /* Espacio reducido */
+    }
+    .childhood-photo-wrapper {
+        max-width: 100%; /* Ocupa el ancho completo */
+        padding: 15px;
+    }
+    .childhood-image {
+        height: auto; /* Altura automática para mejor escalado */
+        max-height: 250px;
+    }
+    .childhood-caption {
+        font-size: 1.2rem;
+    }
+
+    /* 4. Bloques de Recuerdos (Memories) */
+    .memory-block,
+    .memory-block.reverse {
+        /* Cambia de fila a columna */
+        flex-direction: column; 
+        text-align: center;
+        padding: 20px;
+    }
+    .memory-image {
+        /* La imagen ocupa todo el ancho y se ajusta */
+        width: 100%; 
+        max-width: 300px; /* Limita el ancho máximo para no ser gigante */
+        margin: 20px 0; /* Espacio vertical */
+        order: 1; /* Pone la imagen en la parte superior por defecto */
+    }
+    .memory-block.reverse .memory-image {
+        order: 1; /* Mantiene la imagen en la parte superior en el modo reverse */
+    }
+    .memory-text {
+        width: 100%; /* El texto ocupa todo el ancho */
+        text-align: center; /* Centra el texto */
+        order: 2; /* Pone el texto debajo de la imagen */
+    }
+
+    /* 5. Sección de Promesa Final */
+    .promise-content h3 { font-size: 3rem; }
+    .signature { font-size: 3rem; }
+}
+
+@media (max-width: 480px) {
+    /* Ajustes más finos para pantallas muy pequeñas */
+    .hero-section h1 { font-size: 3rem !important; }
+    .nav-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}
