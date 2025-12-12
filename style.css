@@ -15,8 +15,11 @@ body {
     min-height: 100vh; 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden; /* Evita el scroll nativo */
+    justify-content: flex-start;
+    
+    /* FIX CRÍTICO: permitir scroll */
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 h1, h3, .signature {
@@ -38,33 +41,29 @@ body::before {
     z-index: -1; 
 }
 
-
 /* ----------------------------------- */
 /* 2. SLIDESHOW Y DIAPOSITIVAS         */
 /* ----------------------------------- */
 .slideshow-container {
-    flex-grow: 1; 
-    position: relative;
     width: 100%;
-    overflow: hidden;
+    position: relative;
 }
 
 .slide {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
+    
+    /* FIX: antes tenía height fija → se cortaba en móvil */
+    min-height: 100vh;
+
     display: none;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.5s ease-in-out;
-    overflow-y: auto; /* Permite scroll interno */
+    padding-bottom: 140px; /* evita que el menú tape contenido */
+    
+    position: relative;
+    overflow: visible;
 }
 
 .slide.active {
-    display: flex;
-    opacity: 1;
+    display: block;
 }
 
 /* ----------------------------------- */
@@ -74,18 +73,23 @@ body::before {
 /* Hero Section */
 .hero-section {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     text-align: center;
     background-color: rgba(255, 255, 255, 0.7);
 }
+
 .hero-section h1 { font-size: 5rem; }
 .hero-section p { font-size: 1.5rem; }
+
 .fade-in-title { opacity: 0; animation: fadeIn 2s ease-out 0.5s forwards; }
 .fade-in-subtitle { opacity: 0; animation: fadeIn 2s ease-out 1.5s forwards; }
+
 @keyframes fadeIn { to { opacity: 1; } }
 
 /* BOTÓN DE CORAZÓN EN EL INICIO */
@@ -121,12 +125,10 @@ body::before {
     animation: fadeIn 2s ease-out 2.5s forwards; 
 }
 
-
-/* Estilo general para secciones (infancia y recuerdos) - Full Height */
+/* Sección general */
 .childhood-section, .story-section {
     padding: 60px 5%; 
-    width: 100%; 
-    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -137,66 +139,91 @@ body::before {
 /* Childhood Section (Galería) */
 .childhood-section { background-color: #fce4ec; }
 .childhood-section h2 { font-size: 3.5rem; color: #c2185b; margin-bottom: 40px; }
-.childhood-gallery { 
-    display: flex; 
-    justify-content: center; 
-    gap: 40px; 
-    flex-wrap: wrap; 
+
+.childhood-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
     max-width: 1200px;
 }
-.childhood-photo-wrapper { 
-    padding: 20px; 
-    max-width: 300px; 
-    background-color: #fff; 
-    border-radius: 20px; 
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); 
-}
-.childhood-image { 
-    width: 100%; 
-    height: 250px; 
-    object-fit: cover; 
-    border-radius: 10px; 
-    border: 3px solid #ff80ab; 
-}
-.childhood-caption { 
-    font-family: 'Great Vibes', cursive; 
-    font-size: 1.4rem; 
+
+.childhood-photo-wrapper {
+    padding: 20px;
+    max-width: 300px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Story Section (Recuerdos) */
-.story-section h2 { font-size: 3rem; color: #e91e63; margin-bottom: 40px; }
-.memory-block { 
-    max-width: 900px; 
+.childhood-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid #ff80ab;
+}
+
+.childhood-caption {
+    font-family: 'Great Vibes', cursive; 
+    font-size: 1.4rem;
+}
+
+/* Story Section */
+.story-section h2 {
+    font-size: 3rem;
+    color: #e91e63;
+    margin-bottom: 40px;
+}
+
+.memory-block {
+    max-width: 900px;
     width: 90%;
-    display: flex; 
-    align-items: center; 
-    padding: 30px; 
-    background-color: #fff; 
-    border-radius: 15px; 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     margin: 20px 0;
 }
+
 .memory-block.reverse { flex-direction: row-reverse; }
-.memory-image { width: 45%; margin: 0 20px; border-radius: 10px; }
-.memory-text { width: 55%; text-align: left; }
+
+.memory-image {
+    width: 45%;
+    margin: 0 20px;
+    border-radius: 10px;
+}
+
+.memory-text {
+    width: 55%;
+    text-align: left;
+}
+
 .memory-text h3 { font-size: 2.5rem; }
 
-/* Promise Section (Mensaje Final) - Full Height */
+/* Promise Section */
 .promise-section {
     background-color: #e91e63;
     color: white;
     padding: 80px 5%;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .promise-content { max-width: 800px; }
 .promise-content h3 { color: #fff; font-size: 3.5rem; }
 .promise-content p { font-size: 1.5rem; }
-.signature { font-size: 4rem; margin-top: 30px; }
 
+.signature {
+    font-size: 4rem;
+    margin-top: 30px;
+}
 
 /* ----------------------------------- */
 /* 4. CONTROLES DE NAVEGACIÓN          */
@@ -205,19 +232,18 @@ body::before {
     position: fixed;
     bottom: 0;
     left: 0;
+
     width: 100%;
     text-align: center;
+
     padding: 15px 0;
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     z-index: 100;
-    transition: opacity 0.3s ease; 
 }
 
-/* CLASE CRÍTICA: OCULTAR COMPLETAMENTE los controles en el slide de inicio */
 .controls-container.hidden {
     display: none;
-    opacity: 0;
 }
 
 .nav-btn {
@@ -233,111 +259,90 @@ body::before {
     font-weight: bold;
 }
 
-.nav-btn:hover:not(:disabled) { background-color: #e91e63; transform: scale(1.05); }
-.nav-btn:disabled { background-color: #ccc; cursor: not-allowed; }
+.nav-btn:hover:not(:disabled) {
+    background-color: #e91e63;
+    transform: scale(1.05);
+}
+
+.nav-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
 
 footer {
-    display: none; 
+    display: none;
 }
 
 /* ----------------------------------- */
-/* 5. LÓGICA DE ANIMACIÓN (SUAVE)      */
+/* 5. ANIMACIONES                      */
 /* ----------------------------------- */
-
-/* Estado inicial (oculto) para todos los elementos que deben animarse */
 .animated[data-animation] {
     opacity: 0;
-    /* Duración de transición aumentada para suavidad */
     transition: opacity 1.2s ease-out, transform 1.2s ease-out; 
 }
 
-/* Definición de transformaciones iniciales */
-/* Distancia de desplazamiento reducida de 50px a 20px */
 .animated[data-animation="slide-left"] { transform: translateX(20px); }
 .animated[data-animation="slide-right"] { transform: translateX(-20px); }
-/* Zoom inicial ajustado de 0.7 a 0.8 para un efecto más sutil */
 .animated[data-animation="zoom-in"] { transform: scale(0.8); }
 
-/* Estado final (la clase 'animate-in' la añade JavaScript) */
 .animated.animate-in {
     opacity: 1;
     transform: translate(0, 0) scale(1);
 }
 
 /* ----------------------------------- */
-/* 6. RESPONSIVIDAD (Media Queries)    */
+/* 6. RESPONSIVIDAD                    */
 /* ----------------------------------- */
 
 @media (max-width: 768px) {
-    
-    /* 1. Base y Tipografía */
-    body {
-        /* Se asegura que no haya desbordamiento horizontal */
-        overflow-x: hidden; 
-    }
-    
+
     h1 { font-size: 3rem !important; }
     h2 { font-size: 2.5rem !important; }
     h3 { font-size: 2rem !important; }
-    p { font-size: 1.1rem !important; }
-    
-    /* 2. Sección Hero */
+    p  { font-size: 1.1rem !important; }
+
     .hero-section h1 { font-size: 3.5rem !important; }
-    .hero-section p { font-size: 1.2rem !important; }
-    .heart-btn { 
-        padding: 12px 25px; 
+    .hero-section p  { font-size: 1.2rem !important; }
+
+    .heart-btn {
+        padding: 12px 25px;
         font-size: 1.2rem;
     }
 
-    /* 3. Galería de la Infancia */
     .childhood-gallery {
-        /* Permite que las fotos se apilen verticalmente */
-        flex-direction: column; 
-        gap: 20px; /* Espacio reducido */
-    }
-    .childhood-photo-wrapper {
-        max-width: 100%; /* Ocupa el ancho completo */
-        padding: 15px;
-    }
-    .childhood-image {
-        height: auto; /* Altura automática para mejor escalado */
-        max-height: 250px;
-    }
-    .childhood-caption {
-        font-size: 1.2rem;
+        flex-direction: column;
+        gap: 20px;
     }
 
-    /* 4. Bloques de Recuerdos (Memories) */
     .memory-block,
     .memory-block.reverse {
-        /* Cambia de fila a columna */
-        flex-direction: column; 
-        text-align: center;
+        flex-direction: column;
         padding: 20px;
-    }
-    .memory-image {
-        /* La imagen ocupa todo el ancho y se ajusta */
-        width: 100%; 
-        max-width: 300px; /* Limita el ancho máximo para no ser gigante */
-        margin: 20px 0; /* Espacio vertical */
-        order: 1; /* Pone la imagen en la parte superior por defecto */
-    }
-    .memory-block.reverse .memory-image {
-        order: 1; /* Mantiene la imagen en la parte superior en el modo reverse */
-    }
-    .memory-text {
-        width: 100%; /* El texto ocupa todo el ancho */
-        text-align: center; /* Centra el texto */
-        order: 2; /* Pone el texto debajo de la imagen */
+        text-align: center;
     }
 
-    /* 5. Sección de Promesa Final */
+    .memory-image {
+        width: 100%;
+        max-width: 300px;
+        margin: 20px 0;
+        order: 1;
+    }
+
+    .memory-text {
+        width: 100%;
+        text-align: center;
+        order: 2;
+    }
+
+    .slide {
+        padding-bottom: 180px; /* más espacio para el menú */
+    }
+
     .promise-content h3 { font-size: 3rem; }
     .signature { font-size: 3rem; }
 }
 
 @media (max-width: 480px) {
-    /* Ajustes más finos para pantallas muy pequeñas */
     .hero-section h1 { font-size: 3rem !important; }
     .nav-btn {
         padding: 8px 15px;
